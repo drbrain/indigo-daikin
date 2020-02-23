@@ -47,6 +47,13 @@
         <ControlPageLabel>Current fan speed</ControlPageLabel>
         <ControlPageLabelPrefix>Fan speed is</ControlPageLabelPrefix>
       </State>
+      <State id="hvacDehumidifierIsOn">
+        <ValueType>Boolean</ValueType>
+        <TriggerLabel>Dehumifidier changed</TriggerLabel>
+        <TriggerLabelPrefix>Dehumifier turned</TriggerLabelPrefix>
+        <ControlPageLabel>Demuhidifier</ControlPageLabel>
+        <ControlPageLabelPrefix>Dehumifier is</ControlPageLabelPrefix>
+      </State>
     </States>
   </Device>
 </Devices>
