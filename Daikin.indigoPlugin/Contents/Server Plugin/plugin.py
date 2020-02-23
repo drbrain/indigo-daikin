@@ -31,7 +31,7 @@ class Plugin(indigo.PluginBase):
         if device.ownerProps["temperature"] == "celcius":
             return celcius
         else:
-            return 1.8 * celcius + 32
+            return round(1.8 * celcius + 32, 0)
 
     def deviceStartComm(self, device):
         if device.id not in self.devices:
