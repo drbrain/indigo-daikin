@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Devices>
   <Device type="thermostat" id="DaikinHVACUnit">
-    <Name>Daikin HVAC Unit</Name>
+    <Name>HVAC Unit</Name>
     <ConfigUI>
       <Field type="textfield" id="address">
         <Label>Hostname/IP:</Label>
@@ -13,6 +13,11 @@
           <Option value="farenheit">℉</Option>
         </List>
       </Field>
+      <Field type="checkbox" id="ShowCoolHeatEquipmentStateUI" defaultValue="true" hidden="true">
+        <Label/>
+        <Description/>
+      </Field>
+      <Field type="textfield" id="NumTemperatureInputs" defaultValue="1" hidden="true"/>
     </ConfigUI>
     <States>
       <State id="outdoorTemperature">
