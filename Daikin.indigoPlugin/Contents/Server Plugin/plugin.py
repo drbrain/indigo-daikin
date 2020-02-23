@@ -14,6 +14,12 @@ class Plugin(indigo.PluginBase):
 
         self.devices = {}
 
+    def convertTemperature(self, device, celcius):
+        if device.ownerProps["temperature"] == "celcius":
+            return celcius
+        else:
+            return 1.8 * celcius + 32
+
     def deviceStartComm(self, device):
         if device.id not in self.devices:
             self.devices[device.id] = device
@@ -36,12 +42,11 @@ class Plugin(indigo.PluginBase):
 
         if sensor_info["humidity"]:
             device.updateStateOnServer("humidityInput1", sensor_info["humidity"])
+
         if sensor_info["temperature"]:
-            device.updateStateOnServer("temperatureInput1", sensor_info["temperature"])
+            device.updateStateOnServer("temperatureInput1", convertTemperature(device, sensor_info["temperature"]))
 
-        device.updateStateOnServer("outdoorTemperature", sensor_info["outdoorTemperature"])
-
-        device.updateStateOnServer("outdoorTemperature", sensor_info["outdoorTemperature"])
+        device.updateStateOnServer("outdoorTemperature", convertTemperature(device, sensor_info["outdoorTemperature"]))
 
         control_info = api.control_info()
 
@@ -51,16 +56,16 @@ class Plugin(indigo.PluginBase):
         dehumidifierOn = False
         fanMode        = indigo.kFanMode.Auto
         operationMode  = indigo.kHvacMode.Off
-        setpointCool   = control_info["setpointCool"]
-        setpointHeat   = control_info["setpointHeat"]
+        setpointCool   = convertTemperature(device, control_info["setpointCool"])
+        setpointHeat   = convertTemperature(device, control_info["setpointHeat"])
 
         if control_info["power"]:
             mode = control_info["mode"]
 
             if mode == "automatic":
                 operationMode = indigo.kHvacMode.ProgramHeatCool
-                setpointCool  = control_info["setpointHeatCool"]
-                setpointHeat  = control_info["setpointHeatCool"]
+                setpointCool  = convertTemperature(device, control_info["setpointHeatCool"])
+                setpointHeat  = convertTemperature(device, control_info["setpointHeatCool"])
             elif mode == "cool":
                 operationMode = indigo.kHvacMode.ProgramCool
             elif mode == "heat":
