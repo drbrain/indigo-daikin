@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<Devices>
+  <Device type="thermostat" id="DaikinHVACUnit">
+    <Name>Daikin HVAC Unit</Name>
+    <ConfigUI>
+      <Field type="label" id="title">
+        <Label>Daikin HVAC Unit Settings</Label>
+      </Field>
+      <Field type="textfield" id="address">
+        <Label>Hostname/IP:</Label>
+      </Field>
+    </ConfigUI>
+    <States>
+      <State id="outdoorTemperature" readonly="YES">
+        <ValueType>Number</ValueType>
+        <TriggerLabel>Outdoor Temperature</TriggerLabel>
+        <ControlPageLabel>Outdoor Temperature</ControlPageLabel>
+      </State>
+      <State id="fanSpeed">
+        <ValueType>
+          <List>
+            <Option value="automatic">Automatic</Option>
+            <Option value="silent">Silent</Option>
+            <Option value="1">1</Option>
+            <Option value="2">2</Option>
+            <Option value="3">3</Option>
+            <Option value="4">4</Option>
+            <Option value="5">5</Option>
+          </List>
+        </ValueType>
+        <TriggerLabel>Fan speed changed</TriggerLabel>
+        <TriggerLabelPrefix>Fan speed changed to</TriggerLabelPrefix>
+        <ControlPageLabel>Current fan speed</ControlPageLabel>
+        <ControlPageLabelPrefix>Fan speed is</ControlPageLabelPrefix>
+      </State>
+      <State id="fanDirection">
+        <ValueType>
+          <List>
+            <Option value="stop">Stop</Option>
+            <Option value="vertical">Vertical</Option>
+            <Option value="horizontal">Horizontal</Option>
+            <Option value="both">Vertical and horizontal</Option>
+          </List>
+        </ValueType>
+        <TriggerLabel>Fan speed changed</TriggerLabel>
+        <TriggerLabelPrefix>Fan speed changed to</TriggerLabelPrefix>
+        <ControlPageLabel>Current fan speed</ControlPageLabel>
+        <ControlPageLabelPrefix>Fan speed is</ControlPageLabelPrefix>
+      </State>
+    </States>
+  </Device>
+</Devices>
