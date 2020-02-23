@@ -42,8 +42,19 @@ class Plugin(indigo.PluginBase):
         if device.id in self.devices:
             self.devices.pop(device.id)
 
+    def runConcurrentThread(self):
+        while True:
+            if len(self.devices) > 0:
+                self.updateAll()
+
+            self.sleep(60)
+
     def update(self, device):
         if device.deviceTypeId == "DaikinHVACUnit":
+            self.updateHVAC(device)
+
+    def updateAll(self):
+        for _, device in self.devices.iteritems():
             self.updateHVAC(device)
 
     def updateHVAC(self, device):
