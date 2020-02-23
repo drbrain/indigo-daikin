@@ -70,8 +70,12 @@ class Plugin(indigo.PluginBase):
         if sensor_info["temperature"]:
             device.updateStateOnServer("temperatureInput1", self.convertTemperature(device, sensor_info["temperature"]))
 
+        outdoorTemperature = None
+
         if sensor_info["outdoorTemperature"]:
-            device.updateStateOnServer("outdoorTemperature", self.convertTemperature(device, sensor_info["outdoorTemperature"]))
+            outdoorTemperature = self.convertTemperature(device, sensor_info["outdoorTemperature"])
+
+        device.updateStateOnServer("outdoorTemperature", outdoorTemperature)
 
         control_info = api.control_info()
 
