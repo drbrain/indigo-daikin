@@ -14,6 +14,19 @@ class Plugin(indigo.PluginBase):
 
         self.devices = {}
 
+    def actionControlThermostat(self, action, device):
+        if action.thermostatAction in [
+                indigo.kThermostatAction.RequestEquipmentState,
+                indigo.kThermostatAction.RequestHumidities,
+                indigo.kThermostatAction.RequestMode,
+                indigo.kThermostatAction.RequestSetpoints,
+                indigo.kThermostatAction.RequestStatusAll,
+                indigo.kThermostatAction.RequestTemperatures,
+           ]:
+            updateHVAC(device)
+        else:
+            self.debugLog("Unhandled thermostat control action %s" % action)
+
     def convertTemperature(self, device, celcius):
         if device.ownerProps["temperature"] == "celcius":
             return celcius
