@@ -57,9 +57,9 @@ class Plugin(indigo.PluginBase):
             device.updateStateOnServer("humidityInput1", sensor_info["humidity"])
 
         if sensor_info["temperature"]:
-            device.updateStateOnServer("temperatureInput1", convertTemperature(device, sensor_info["temperature"]))
+            device.updateStateOnServer("temperatureInput1", self.convertTemperature(device, sensor_info["temperature"]))
 
-        device.updateStateOnServer("outdoorTemperature", convertTemperature(device, sensor_info["outdoorTemperature"]))
+        device.updateStateOnServer("outdoorTemperature", self.convertTemperature(device, sensor_info["outdoorTemperature"]))
 
         control_info = api.control_info()
 
@@ -69,16 +69,16 @@ class Plugin(indigo.PluginBase):
         dehumidifierOn = False
         fanMode        = indigo.kFanMode.Auto
         operationMode  = indigo.kHvacMode.Off
-        setpointCool   = convertTemperature(device, control_info["setpointCool"])
-        setpointHeat   = convertTemperature(device, control_info["setpointHeat"])
+        setpointCool   = self.convertTemperature(device, control_info["setpointCool"])
+        setpointHeat   = self.convertTemperature(device, control_info["setpointHeat"])
 
         if control_info["power"]:
             mode = control_info["mode"]
 
             if mode == "automatic":
                 operationMode = indigo.kHvacMode.ProgramHeatCool
-                setpointCool  = convertTemperature(device, control_info["setpointHeatCool"])
-                setpointHeat  = convertTemperature(device, control_info["setpointHeatCool"])
+                setpointCool  = self.convertTemperature(device, control_info["setpointHeatCool"])
+                setpointHeat  = self.convertTemperature(device, control_info["setpointHeatCool"])
             elif mode == "cool":
                 operationMode = indigo.kHvacMode.ProgramCool
             elif mode == "heat":
