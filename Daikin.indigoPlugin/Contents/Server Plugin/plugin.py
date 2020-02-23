@@ -23,7 +23,7 @@ class Plugin(indigo.PluginBase):
                 indigo.kThermostatAction.RequestStatusAll,
                 indigo.kThermostatAction.RequestTemperatures,
            ]:
-            updateHVAC(device)
+            self.updateHVAC(device)
         else:
             self.debugLog("Unhandled thermostat control action %s" % action)
 
