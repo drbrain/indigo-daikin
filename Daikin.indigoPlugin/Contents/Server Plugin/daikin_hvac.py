@@ -95,14 +95,14 @@ class DaikinHVAC:
             self.errorLog('Error fetching %s: %s' % (url, str(e)))
             return;
 
-        fields = split(f.read, ",")
+        fields = f.read().split(",")
 
         f.close()
 
         response = {}
 
         for field in fields:
-            key, value = split(field, "=", 2)
+            key, value = field.split("=", 2)
             response[key] = value
 
         return response

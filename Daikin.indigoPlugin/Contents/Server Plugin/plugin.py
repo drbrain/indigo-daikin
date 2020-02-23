@@ -2,6 +2,7 @@
 # coding: utf-8
 
 import indigo
+from daikin_hvac import *
 
 class Plugin(indigo.PluginBase):
     def __init__(self, pluginId, pluginDisplayName, pluginVersion,
@@ -34,10 +35,12 @@ class Plugin(indigo.PluginBase):
         sensor_info = api.sensor_info()
 
         if sensor_info["humidity"]:
-            device.updateStateOnServer("humidityInput0", sensor_info["humidity"])
-        device.updateStateOnServer("outdoor_temperature", sensor_info["outdoor_temperature"])
+            device.updateStateOnServer("humidityInput1", sensor_info["humidity"])
         if sensor_info["temperature"]:
-            device.updateStateOnServer("temperatureInput0", sensor_info["temperature"])
+            device.updateStateOnServer("temperatureInput1", sensor_info["temperature"])
+
+        device.updateStateOnServer("outdoorTemperature", sensor_info["outdoorTemperature"])
+
         device.updateStateOnServer("outdoorTemperature", sensor_info["outdoorTemperature"])
 
         control_info = api.control_info()
@@ -58,13 +61,13 @@ class Plugin(indigo.PluginBase):
                 operationMode = indigo.kHvacMode.ProgramHeatCool
                 setpointCool  = control_info["setpointHeatCool"]
                 setpointHeat  = control_info["setpointHeatCool"]
-            else if mode == "cool":
+            elif mode == "cool":
                 operationMode = indigo.kHvacMode.ProgramCool
-            else if mode == "heat":
+            elif mode == "heat":
                 operationMode = indigo.kHvacMode.ProgramHeat
-            else if mode == "dry":
+            elif mode == "dry":
                 dehumidifierOn = True
-            else if mode == "fan":
+            elif mode == "fan":
                 fanMode       = indigo.kFanMode.AlwaysOn
                 operationMode = indigo.kHvacMode.Off
 
